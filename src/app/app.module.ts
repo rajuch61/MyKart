@@ -21,6 +21,8 @@ import { AdminProductsComponent } from './admin/admin-products/admin-products.co
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { AdminAuthGuard } from './services/admin-auth-guard.service';
+import { NotAuthorisedComponent } from './not-authorised/not-authorised.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { RegisterComponent } from './register/register.component';
     AdminOrdersComponent,
     LoginComponent,
     RegisterComponent,
+    NotAuthorisedComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,11 +57,11 @@ import { RegisterComponent } from './register/register.component';
       { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard] },
       { path: 'order-sucess', component: OrderSuccessComponent, canActivate: [AuthGuard] },
 
-      { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard] },
-      { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard] }
+      { path: 'admin/products', component: AdminProductsComponent, canActivate: [AdminAuthGuard] },
+      { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AdminAuthGuard] }
     ])
   ],
-  providers: [APIService, AuthService, AuthGuard],
+  providers: [APIService, AuthService, AuthGuard, AdminAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
